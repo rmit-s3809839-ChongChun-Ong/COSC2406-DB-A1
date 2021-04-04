@@ -32,10 +32,10 @@ public class dbload {
    static final int DTMaxLength = 22;
    static final int yearMaxLength = 4;
    static final int monthMaxLength = 9;
-   static final int mDateMaxLength = 2;
+   static final int mDateMaxLength = 4;
    static final int dayMaxLength = 9;
-   static final int timeMaxLength = 2;
-   static final int sIDMaxLength = 2;
+   static final int timeMaxLength = 4;
+   static final int sIDMaxLength = 4;
    static final int sNameMaxLength = 50;
    static final int hourlyCountsMaxLength = 4;
 
@@ -219,6 +219,8 @@ public static DataOutputStream GenerateOutputStream(int pageSize) throws FileNot
                   mDtLength = tmpByte.length;
            //    } else {
                  
+          //  System.out.println("mdate value:" + mDateValue);
+
                  // byte[] objByte = ArrPC[x].getBytes("UTF-8");
           //        objStream.write(objByte);
           //        mDtLength = objByte.length;

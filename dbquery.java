@@ -111,113 +111,111 @@ public class dbquery {
 
       int pageNum = 1;
       int recordCount = 1;
-      int tmpTotalRecordCountPerPage = 181/pageSize;  
+      int tmpTotalRecordCountPerPage = pageSize/161;  
 
-     // byte version = objFile.readByte();
-      //byte[] tempId = new byte[]{};
-     // objFile.read(tempId, 1, 16);
-     // String val = new String(version);
-     // System.out.println("val." + version);
-    
-    
-//      try (FileInputStream fis = new FileInputStream("heap." + pageSize);
-//      InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8); 
-//     //InputStreamReader isr = new InputStreamReader(fis,"ISO-8859-15");
-//      BufferedReader reader = new BufferedReader(isr)
-//     ) {
-
-//     String str;
-//     while ((str = reader.readLine()) != null) {
-//         System.out.println(str);
-//     }
-
-// } catch (IOException e) {
-//     e.printStackTrace();
-// }
-
-
-//objFile.seek(149);
-//byte[] objs = new byte[149];
-objFile.seek(155);
-byte[] objs = new byte[155];
+         
+objFile.seek(161);
+byte[] objs = new byte[161];
 objFile.read(objs);
 byte[] vcc = Arrays.copyOfRange(objs, 0, 25);
 String strasddd = new String(vcc);
-System.out.println("text:" + strasddd.trim());
+//System.out.println("text:" + strasddd.trim());
 
 byte[] tmpid = Arrays.copyOfRange(objs, 25, 32);
 int tmpidVal= java.nio.ByteBuffer.wrap(tmpid).getInt();
 //String strid = String.valueOf(tmpid);
 //strid = strid.replaceAll("[\\D]", "");
 //int mds = Integer.parseInt(tmpid);
-System.out.println("idValue:" + tmpidVal);
+//System.out.println("idValue:" + tmpidVal);
 
 byte[] vdt = Arrays.copyOfRange(objs, 32, 55);
 String strdt = new String(vdt);
-System.out.println("text:" + strdt);
+//System.out.println("text:" + strdt);
 
-byte[] vdt2 = Arrays.copyOfRange(objs, 59, 78);
+byte[] yr = Arrays.copyOfRange(objs, 55, 77);
+int inyr = java.nio.ByteBuffer.wrap(yr).getInt();
+String stryr = new String(yr);
+//System.out.println("year:" + stryr);
+
+byte[] vdt2 = Arrays.copyOfRange(objs, 77, 85);
 String strdt2= new String(vdt2);
-System.out.println("month:" + strdt2.trim());
+//System.out.println("month:" + strdt2);
 
-byte[] vmd = Arrays.copyOfRange(objs, 68, 70);
-int mDateValue = java.nio.ByteBuffer.wrap(vmd).getInt();
+byte[] vmd = Arrays.copyOfRange(objs, 85, 90);
+int mDValue = java.nio.ByteBuffer.wrap(vmd).getInt();
 //String strmdt = new String(vmd);
-System.out.println("val:" + vmd.length);
+//System.out.println("mdate:" + mDateValue);
 
-     // for (int i = 0; i < count; i += 150) {
-      for (int i = 0; i < count; i += 155) {
-        
-         if (i <= pageSize) {
-       //     System.out.println("i." + i);
+byte[] mn = Arrays.copyOfRange(objs, 90, 99);
+String strmn= new String(mn);
+//String strmdt = new String(vmd);
+//System.out.println("day:" + strmn);
 
+byte[] tm = Arrays.copyOfRange(objs, 99, 103);
+int intm = java.nio.ByteBuffer.wrap(tm).getInt();
+String strmdt = new String(tm);
+//System.out.println("time:" + intm);
+
+
+byte[] sid = Arrays.copyOfRange(objs, 103, 107);
+int intsid = java.nio.ByteBuffer.wrap(sid).getInt();
+String strsid = new String(sid);
+//System.out.println("sid:" + intsid);
+
+byte[] sname = Arrays.copyOfRange(objs, 107, 157);
+String strsname= new String(sname);
+//String strmdt = new String(vmd);
+//System.out.println("sname:" + strsname);
+
+byte[] hc = Arrays.copyOfRange(objs, 157, 161);
+int inthc = java.nio.ByteBuffer.wrap(hc).getInt();
+String strhc = new String(hc);
+//System.out.println("hc:" + inthc);
+    
+      for (int i = 0; i < count; i += 161) {
         
          objFile.seek(i);
-         //byte[] objRecordByte = new byte[150];
-         byte[] objRecordByte = new byte[155];
+        byte[] objRecordByte = new byte[161];
          objFile.read(objRecordByte);
        
-
          byte[] SDT_Name = Arrays.copyOfRange(objRecordByte, 0, 25);
            byte[] id = Arrays.copyOfRange(objRecordByte, 25, 32);
            byte[] date_time = Arrays.copyOfRange(objRecordByte, 32, 55);
-           byte[] year = Arrays.copyOfRange(objRecordByte, 55, 59);
-          byte[] month = Arrays.copyOfRange(objRecordByte, 59, 68);
-          byte[] mDate = Arrays.copyOfRange(objRecordByte, 68, 70);
-          byte[] day = Arrays.copyOfRange(objRecordByte, 70, 79);
-          byte[] time = Arrays.copyOfRange(objRecordByte, 79, 81);
-          byte[] sensorID = Arrays.copyOfRange(objRecordByte, 81, 83);
-          byte[] sensorName = Arrays.copyOfRange(objRecordByte, 83, 133);
-          byte[] hourlycounts = Arrays.copyOfRange(objRecordByte, 133, 137);
+           byte[] year = Arrays.copyOfRange(objRecordByte, 55, 77);
+          byte[] month = Arrays.copyOfRange(objRecordByte, 77, 85);
+          byte[] mDate = Arrays.copyOfRange(objRecordByte, 86, 90);
+          byte[] day = Arrays.copyOfRange(objRecordByte, 90, 99);
+          byte[] time = Arrays.copyOfRange(objRecordByte, 99, 103);
+          byte[] sensorID = Arrays.copyOfRange(objRecordByte, 103, 107);
+          byte[] sensorName = Arrays.copyOfRange(objRecordByte, 107, 157);
+          byte[] hourlycounts = Arrays.copyOfRange(objRecordByte, 157, 161);
        
 
          int idValue = java.nio.ByteBuffer.wrap(id).getInt();
          int yearValue = java.nio.ByteBuffer.wrap(year).getInt();
-        // int mDateValue = java.nio.ByteBuffer.wrap(mDate).getInt();
-        // int timeValue = java.nio.ByteBuffer.wrap(time).getInt();
-      //   int sensorIDValue = java.nio.ByteBuffer.wrap(sensorID).getInt();
-      //  int hourlycountsValue = java.nio.ByteBuffer.wrap(hourlycounts).getInt();
-        // System.out.println("id=" + new String(mDate));
-     
-
-      String strSDTname = new String(SDT_Name);
+        int mDateValue = java.nio.ByteBuffer.wrap(mDate).getInt();
+        int timeValue = java.nio.ByteBuffer.wrap(time).getInt();
+        int sensorIDValue = java.nio.ByteBuffer.wrap(sensorID).getInt();
+       int hourlycountsValue = java.nio.ByteBuffer.wrap(hourlycounts).getInt();
+    
+       String strSDTname = new String(SDT_Name);
     
          if(strSDTname.toLowerCase().contains(text.toLowerCase())) {
-         //if(recordCount == 1) {
-            recordCount = 1;
+        // if(recordCount == 1) {
+           // recordCount = 1;
             System.out.println("Record: " + recordCount);
             System.out.println("Page: " + pageNum);
             System.out.println("SDT_Name: " + strSDTname);
             System.out.println("ID: " + idValue);
             System.out.println("Date_Time: " + new String(date_time));
             System.out.println("Year: " + yearValue);
-            //  System.out.println("Month: " + new String(month));
-            //  System.out.println("mDate: " + new String(mDate));
-            // System.out.println("Day: " + new String(day));
-            // System.out.println("Time: " + timeValue);
-            // System.out.println("Sensor_ID: " + sensorIDValue);
-            // System.out.println("SensorName: " + new String(sensorName));
-            // System.out.println("HourlyCounts: " + hourlycountsValue);
+             System.out.println("Month: " + new String(month));
+             System.out.println("mDate: " + mDateValue);
+            System.out.println("Day: " + new String(day));
+            System.out.println("Time: " + timeValue);
+            System.out.println("Sensor_ID: " + sensorIDValue);
+            System.out.println("SensorName: " + new String(sensorName));
+            System.out.println("HourlyCounts: " + hourlycountsValue);
             System.out.println();
          }
          else {
@@ -227,7 +225,7 @@ System.out.println("val:" + vmd.length);
                recordCount=0;
             }
          }
-      }
+     // }
      
     }
     objFile.close();
